@@ -1,11 +1,11 @@
 import { makeAutoObservable } from "mobx";
 
-interface IType {
+export interface IType {
   id: number;
   name: string;
 }
 
-interface IBrand {
+export interface IBrand {
   id: number;
   name: string;
 }
@@ -24,58 +24,18 @@ export default class DeviceStore {
   private _devices: IDevice[];
   private _selectedType: IType | null;
   private _selectedBrand: null | IBrand;
+  private _page: number;
+  private _totalCount: number;
+  private _limit: number;
   constructor() {
-    this._types = [
-      { id: 1, name: "Холодильник" },
-      { id: 2, name: "Смарфоны" },
-      { id: 3, name: "Ноутбуки" },
-      { id: 4, name: "Телевизоры" },
-    ];
-    this._brands = [
-      { id: 1, name: "Apple" },
-      { id: 2, name: "Samsung" },
-      { id: 3, name: "Lenovo" },
-      { id: 4, name: "Asus" },
-    ];
-    this._devices = [
-      {
-        id: 1,
-        name: "Iphone 12 pro",
-        price: 25000,
-        rating: 5,
-        img: "https://apiua.icoola.ua/aimeos/1.d/preview/b/d/bddb59eb_apple-iphone-12-pro-256gb-blue-icoola-1.jpg",
-      },
-      {
-        id: 2,
-        name: "Iphone 12 pro",
-        price: 25000,
-        rating: 5,
-        img: "https://apiua.icoola.ua/aimeos/1.d/preview/b/d/bddb59eb_apple-iphone-12-pro-256gb-blue-icoola-1.jpg",
-      },
-      {
-        id: 3,
-        name: "Iphone 12 pro",
-        price: 25000,
-        rating: 5,
-        img: "https://apiua.icoola.ua/aimeos/1.d/preview/b/d/bddb59eb_apple-iphone-12-pro-256gb-blue-icoola-1.jpg",
-      },
-      {
-        id: 4,
-        name: "Iphone 12 pro",
-        price: 25000,
-        rating: 5,
-        img: "https://apiua.icoola.ua/aimeos/1.d/preview/b/d/bddb59eb_apple-iphone-12-pro-256gb-blue-icoola-1.jpg",
-      },
-      {
-        id: 5,
-        name: "Iphone 12 pro",
-        price: 25000,
-        rating: 5,
-        img: "https://apiua.icoola.ua/aimeos/1.d/preview/b/d/bddb59eb_apple-iphone-12-pro-256gb-blue-icoola-1.jpg",
-      },
-    ];
+    this._types = [];
+    this._brands = [];
+    this._devices = [];
     this._selectedType = null;
     this._selectedBrand = null;
+    this._page = 1;
+    this._totalCount = 0;
+    this._limit = 4;
     makeAutoObservable(this);
   }
 
@@ -89,10 +49,18 @@ export default class DeviceStore {
     this._devices = devices;
   }
   setSelectedType(type: IType) {
+    this.setPage(1);
     this._selectedType = type;
   }
   setSelectedBrand(brand: IBrand) {
+    this.setPage(1);
     this._selectedBrand = brand;
+  }
+  setPage(page: number) {
+    this._page = page;
+  }
+  setTotalCount(count: number) {
+    this._totalCount = count;
   }
 
   get types() {
@@ -109,5 +77,14 @@ export default class DeviceStore {
   }
   get selectedBrand() {
     return this._selectedBrand;
+  }
+  get page() {
+    return this._page;
+  }
+  get totalCount() {
+    return this._totalCount;
+  }
+  get limit() {
+    return this._limit;
   }
 }

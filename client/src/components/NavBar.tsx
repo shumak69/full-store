@@ -8,6 +8,12 @@ import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../utils/consts";
 function NavBar() {
   const { user } = useContext(Context)!;
   const navigate = useNavigate();
+
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+    localStorage.removeItem("token");
+  };
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
@@ -20,7 +26,7 @@ function NavBar() {
               <Button variant="outline-light" color="red" onClick={() => navigate(ADMIN_ROUTE)}>
                 Админ панель
               </Button>
-              <Button variant="outline-light" color="red" className="ms-2" onClick={() => navigate(LOGIN_ROUTE)}>
+              <Button variant="outline-light" color="red" className="ms-2" onClick={() => logOut()}>
                 Выйти
               </Button>
             </>
