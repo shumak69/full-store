@@ -1,11 +1,11 @@
+import { observer } from "mobx-react-lite";
+import { useContext, useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
+import { Context } from ".";
+import "./app.scss";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
-import "./app.scss";
-import { observer } from "mobx-react-lite";
-import { Context } from ".";
-import { useContext, useEffect, useState } from "react";
 import { check } from "./http/userApi";
-import { Spinner } from "react-bootstrap";
 
 function App() {
   const { user } = useContext(Context)!;
@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
     check()
       .then((data) => {
+        user.setRole(data.role);
         user.setUser(true);
         user.setIsAuth(true);
       })
@@ -21,7 +22,11 @@ function App() {
   }, []);
 
   if (loading) {
-    return <Spinner animation="border" variant="info" />;
+    return (
+      <div className="loader d-flex justify-content-center align-items-center">
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
   }
 
   return (

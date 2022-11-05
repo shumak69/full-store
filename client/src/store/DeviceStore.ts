@@ -16,6 +16,8 @@ export interface IDevice {
   price: number;
   rating: number;
   img: string;
+  brandId: number;
+  typeId: number;
 }
 
 export default class DeviceStore {
@@ -48,11 +50,11 @@ export default class DeviceStore {
   setDevices(devices: IDevice[]) {
     this._devices = devices;
   }
-  setSelectedType(type: IType) {
+  setSelectedType(type: IType | null) {
     this.setPage(1);
     this._selectedType = type;
   }
-  setSelectedBrand(brand: IBrand) {
+  setSelectedBrand(brand: IBrand | null) {
     this.setPage(1);
     this._selectedBrand = brand;
   }

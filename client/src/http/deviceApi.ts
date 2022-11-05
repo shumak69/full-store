@@ -1,5 +1,5 @@
 import { authHost, host } from ".";
-import { IBrand, IDevice, IType } from "../store/DeviceStore";
+import { IBrand, IType } from "../store/DeviceStore";
 import { IFetchDevices } from "../types/device";
 
 export const createType = async (type: { name: string }) => {
@@ -27,7 +27,7 @@ export const createDevice = async (device: FormData) => {
 
 type typeId = number | undefined | null;
 
-export const fetchDevices = async (typeId: typeId, brandId: typeId, page: number, limit = 5) => {
+export const fetchDevices = async (typeId: typeId, brandId: typeId, page: number, limit = 4) => {
   const { data } = await host.get<IFetchDevices>("device", {
     params: {
       typeId,

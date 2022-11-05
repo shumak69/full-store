@@ -8,10 +8,21 @@ import { REACT_APP_API_URL } from "../utils/consts";
 
 function DevicePage() {
   const [device, setDevice] = useState<IDevicePage | null>(null);
+  const [error, setError] = useState("");
   const { id } = useParams();
   useEffect(() => {
-    fetchOneDevice(+id!).then((data) => setDevice(data));
+    setError("");
+    fetchOneDevice(+id!)
+      .then((data) => setDevice(data))
+      .catch((err) => setError(err.message));
   }, []);
+  if (error) {
+    return (
+      <Container>
+        <h1 className="mt-3 text-center text-danger">{error}</h1>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Row className="mt-3">
@@ -30,12 +41,12 @@ function DevicePage() {
               className="d-flex align-items-center justify-content-center"
               style={{
                 background: `url(${bigStar}) no-repeat center center/cover`,
-                width: 240,
+                width: 250,
                 height: 240,
                 fontSize: 64,
               }}
             >
-              5
+              {device?.rating || 0}
             </div>
           </Row>
         </Col>
@@ -51,11 +62,15 @@ function DevicePage() {
       </Row>
       <Row className="d-flex flex-column mt-5">
         <h1>Характеристики</h1>
-        {device?.info.map((info) => (
-          <Row key={info.id} className="device-description p-2">
-            {info.title}: {info.description}
-          </Row>
-        ))}
+        {!device?.info.length ? (
+          <div>Характеристики не указаны</div>
+        ) : (
+          device?.info.map((info) => (
+            <Row key={info.id} className="device-description p-2">
+              {info.title}: {info.description}
+            </Row>
+          ))
+        )}
       </Row>
     </Container>
   );

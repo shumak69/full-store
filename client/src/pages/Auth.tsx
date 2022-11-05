@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, Form, Card, Button, Row, Col } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "..";
@@ -21,6 +21,7 @@ function Auth() {
       } else {
         data = await registration(email, password);
       }
+      user.setRole(data.role);
       user.setUser(data);
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
@@ -28,6 +29,21 @@ function Auth() {
       alert(error.response.data.message);
     }
   };
+
+  console.log("email", email);
+
+  useEffect(() => {
+    function keyPress(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        console.log(email);
+        authHandler();
+      }
+    }
+    window.addEventListener("keypress", keyPress);
+    return () => {
+      window.removeEventListener("keypress", keyPress);
+    };
+  }, []);
   return (
     <Container
       className="d-flex justify-content-center align-items-center"

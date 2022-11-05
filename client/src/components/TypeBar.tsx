@@ -8,6 +8,14 @@ function TypeBar() {
 
   return (
     <ListGroup>
+      <ListGroup.Item
+        key={"Все"}
+        onClick={() => device.setSelectedType(null)}
+        active={device.selectedType === null}
+        style={{ cursor: "pointer" }}
+      >
+        Все
+      </ListGroup.Item>
       {device.types.map((type) => (
         <ListGroup.Item
           key={type.id}

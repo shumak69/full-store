@@ -8,6 +8,15 @@ function BrandBar() {
   return (
     <Row>
       <Col className="d-flex flex-wrap">
+        <Card
+          style={{ cursor: "pointer" }}
+          key={"Все"}
+          className="p-3"
+          onClick={() => device.setSelectedBrand(null)}
+          border={device.selectedBrand === null ? "primary" : "light"}
+        >
+          Все
+        </Card>
         {device.brands.map((brand) => (
           <Card
             style={{ cursor: "pointer" }}

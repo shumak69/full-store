@@ -19,12 +19,14 @@ interface IRoute {
 
 export const authRoutes: IRoute[] = [
   {
-    path: ADMIN_ROUTE,
-    Component: Admin,
-  },
-  {
     path: BASKET_ROUTE,
     Component: Basket,
+  },
+];
+export const adminRoutes: IRoute[] = [
+  {
+    path: ADMIN_ROUTE,
+    Component: Admin,
   },
 ];
 

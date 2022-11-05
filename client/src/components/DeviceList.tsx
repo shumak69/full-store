@@ -8,9 +8,11 @@ function DeviceList() {
   const { device } = useContext(Context)!;
   return (
     <Row className="d-flex">
-      {device.devices.map((device) => (
-        <DeviceItem key={device.id} device={device} />
-      ))}
+      {!device.devices.length ? (
+        <h2 className="mt-4">Не найденно товаров </h2>
+      ) : (
+        device.devices.map((device) => <DeviceItem key={device.id} device={device} />)
+      )}
     </Row>
   );
 }
