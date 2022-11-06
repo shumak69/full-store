@@ -26,24 +26,21 @@ function Auth() {
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response?.data?.message || "Произошла ошибка");
     }
   };
-
-  console.log("email", email);
-
   useEffect(() => {
     function keyPress(e: KeyboardEvent) {
       if (e.key === "Enter") {
-        console.log(email);
         authHandler();
       }
     }
+
     window.addEventListener("keypress", keyPress);
     return () => {
       window.removeEventListener("keypress", keyPress);
     };
-  }, []);
+  }, [email, password]);
   return (
     <Container
       className="d-flex justify-content-center align-items-center"

@@ -1,5 +1,10 @@
+import { observer } from "mobx-react-lite";
+import { useContext } from "react";
+import { Context } from "..";
+
 function Basket() {
-  return <div>Basket</div>;
+  const { basket } = useContext(Context)!;
+  return <div>{JSON.stringify(basket.basketItems)}</div>;
 }
 
-export default Basket;
+export default observer(Basket);

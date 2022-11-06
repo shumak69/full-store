@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { Context } from "..";
 import bigStar from "../assets/big-star.svg";
 import { fetchOneDevice } from "../http/deviceApi";
 import { IDevicePage } from "../types/device";
@@ -9,6 +10,7 @@ import { REACT_APP_API_URL } from "../utils/consts";
 function DevicePage() {
   const [device, setDevice] = useState<IDevicePage | null>(null);
   const [error, setError] = useState("");
+  const { basket } = useContext(Context)!;
   const { id } = useParams();
   useEffect(() => {
     setError("");
@@ -56,7 +58,9 @@ function DevicePage() {
             style={{ width: 300, height: 300, fontSize: 32, border: "5px solid lightgray" }}
           >
             <h3>{device?.price} грн.</h3>
-            <Button variant="success">Добавить в корзину</Button>
+            <Button variant="success" onClick={() => basket.setBasketItems(device!)}>
+              Добавить в корзину
+            </Button>
           </Card>
         </Col>
       </Row>
