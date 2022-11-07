@@ -12,6 +12,14 @@ export default class UserStore {
     this._basketItems.push(device);
   }
 
+  deleteBasketItem(i: number) {
+    this._basketItems.splice(i, 1);
+  }
+
+  clearBasket() {
+    this._basketItems = [];
+  }
+
   get basketItems() {
     return this._basketItems;
   }

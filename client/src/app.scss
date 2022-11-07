@@ -35,3 +35,15 @@ a {
     font-size: 0.85rem;
   }
 }
+
+.remove {
+  cursor: pointer;
+  rect {
+    transition: 0.3s all;
+  }
+  &:hover {
+    rect {
+      fill: rgb(148, 10, 10);
+    }
+  }
+}
